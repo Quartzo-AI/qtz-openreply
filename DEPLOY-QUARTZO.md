@@ -51,3 +51,5 @@ a `Sending access` Resend key scoped to `quartzo.ai`, from `login@quartzo.ai`.
 Instagram is not connected. `INSTAGRAM_APP_ID`, `INSTAGRAM_APP_SECRET` and
 `FACEBOOK_APP_SECRET` are absent, so the Meta OAuth round trip and the comment
 webhook are inert until a Meta app exists. Everything else runs.
+
+<!-- auto-deploy webhook probe 2026-08-02 -->
