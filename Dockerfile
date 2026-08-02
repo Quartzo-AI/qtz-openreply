@@ -14,7 +14,12 @@ RUN npm ci
 
 COPY . .
 
-RUN npx prisma generate && npm run build
+# --webpack instead of `npm run build`: Next 16 defaults to Turbopack, which needs
+# the @next/swc-linux-x64-gnu native binary. npm resolves that optional dependency
+# inconsistently here -- one build got it, the next fell back to the musl variant
+# and died on `libc.musl-x86_64.so.1: cannot open shared object file` under Debian.
+# Webpack needs no native bindings, so the build stops depending on that lottery.
+RUN npx prisma generate && npx next build --webpack
 
 ENV NODE_ENV=production
 ENV PORT=3000
