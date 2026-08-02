@@ -1,0 +1,11 @@
+.git
+.github
+node_modules
+.next
+app/generated
+__tests__
+docs
+.env
+.env.*
+!.env.example
+npm-debug.log*
