@@ -67,7 +67,7 @@ export function InstagramConnectNotice() {
           </ul>
         )}
         <p className="mt-2">
-          See <span className="font-mono text-xs">docs/setup.md</span> for how to
+          See <span className="font-mono text-xs">operations/setup.md</span> for how to
           obtain each value. Note that{" "}
           <span className="font-mono text-xs">ENCRYPTION_KEY</span> must be a
           64-character hex string.

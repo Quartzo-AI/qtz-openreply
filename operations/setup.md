@@ -255,7 +255,7 @@ A word of caution: the assistant will need real secrets to finish (Meta app secr
 
 ```
 You are helping me self-host OpenReply, an open source Instagram comment-to-DM
-automation tool, in this repository. Read README.md and docs/setup.md first, then
+automation tool, in this repository. Read README.md and operations/setup.md first, then
 help me get it running end to end.
 
 My goal: <describe it. For example: run it for my own Instagram account only,
@@ -279,7 +279,7 @@ action only I can do:
 4. Deploy both processes and confirm /api/health returns ok with the worker
    healthy.
 
-5. Meta app. Walk me through the Meta app section of docs/setup.md one step at a
+5. Meta app. Walk me through the Meta app section of operations/setup.md one step at a
    time. This is the slow part. Tell me exactly what to click and what to paste,
    using my Vercel domain for the OAuth redirect and webhook. Remember the
    account ID trap (store user_id, not id) and that the app must be published
