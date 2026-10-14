@@ -40,6 +40,12 @@ Migrations run from the web entrypoint when `RUN_MIGRATIONS=true`.
   heartbeat is fresh, so the Coolify healthcheck uses `/login`. Use
   `/api/health` as the real end-to-end smoke: it reports database, redis,
   queue and worker.
+- **`vercel.json` crons do not run on Coolify.** They live as Scheduled Tasks
+  on the `openreply` app (`curl` to `localhost:3000/api/cron/*` with
+  `Bearer $CRON_SECRET` from the container env): `refresh-tokens` 05:00,
+  `snapshot-followers` 07:00, `attach-next-reel` every 5 min. Without the last
+  one, "next reel" campaigns never bind to the new reel. A new cron route
+  needs a new task.
 
 ## Login
 
