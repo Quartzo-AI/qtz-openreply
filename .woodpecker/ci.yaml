@@ -1,0 +1,24 @@
+# CI mínimo (QUARK-289 F5): build e testes que o repo já tem, em todo push e PR.
+when:
+  - event: push
+  - event: pull_request
+  - event: manual
+
+steps:
+  - name: install
+    image: node:22-bookworm@sha256:8a34c4ab3ea2c5cd194f07e317b2a8f09461d3c8b05c4e34c8ccd56d56024c4d
+    commands:
+      - npm ci
+  - name: typecheck
+    image: node:22-bookworm@sha256:8a34c4ab3ea2c5cd194f07e317b2a8f09461d3c8b05c4e34c8ccd56d56024c4d
+    commands:
+      - npx prisma generate
+      - npm run typecheck
+  - name: test
+    image: node:22-bookworm@sha256:8a34c4ab3ea2c5cd194f07e317b2a8f09461d3c8b05c4e34c8ccd56d56024c4d
+    commands:
+      - npm test
+  - name: build
+    image: node:22-bookworm@sha256:8a34c4ab3ea2c5cd194f07e317b2a8f09461d3c8b05c4e34c8ccd56d56024c4d
+    commands:
+      - npm run build
