@@ -9,6 +9,7 @@ import {
   verifyWebhookSignature,
 } from "@/lib/meta/webhook";
 import { MESSAGE_JOB_NAME, POSTBACK_JOB_NAME } from "@/lib/queue/client";
+import { forwardInstagramDmToHub } from "@/lib/quartzo-messaging-hub";
 import { Prisma } from "@/app/generated/prisma/client";
 
 const OPENING_DM_READ_FALLBACK_DELAY_MS = 5 * 60 * 1000;
@@ -174,6 +175,16 @@ export async function POST(request: NextRequest) {
           data: { workspaceId: account.workspaceId },
         });
       }
+
+      // Forward inbound Instagram DM to Quartzo Messaging Hub (non-blocking)
+      await forwardInstagramDmToHub({
+        instagramAccountId: event.instagramAccountId,
+        messageId: event.messageId,
+        messageText: event.messageText,
+        senderId: event.senderId,
+      }).catch((err) => {
+        console.warn("[Webhook] Failed to forward DM to Quartzo Hub:", err);
+      });
     }
 
     // If a user reads the opening DM and never taps the button, deliver the
