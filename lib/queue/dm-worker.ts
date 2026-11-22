@@ -33,6 +33,7 @@ import {
   reserveWorkspaceDMSend,
 } from "@/lib/billing/usage";
 import { recordWorkerAlert } from "@/lib/ops/worker-health";
+import { emitOpenReplyFunnelEvent } from "@/lib/funnel/emitter";
 import {
   buildTrackedUrl,
   renderMessageWithTracking,
@@ -648,6 +649,16 @@ async function processComment(job: Job<ProcessCommentJob>): Promise<void> {
           dmSentAt: new Date(),
           errorMessage: null,
         },
+      });
+
+      void emitOpenReplyFunnelEvent({
+        workspaceId: automation.workspaceId,
+        instagramAccountId: automation.instagramAccountId,
+        automationId: automation.id,
+        automationName: automation.name,
+        mediaId,
+        commentId,
+        recipientIgsid: commenterId,
       });
     } catch (error) {
       await releaseWorkspaceDMReservation(
